@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigidbody;
     private bool IsOnTheGround = true;
     [SerializeField] private float intensityJump;
+    public bool IsGameOver = false;
   
 
     //update
@@ -22,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && IsOnTheGround == true)
+        if(Input.GetKeyDown(KeyCode.Space) && IsOnTheGround == true && IsGameOver == false)
         {
             playerRigidbody.AddForce(Vector3.up * intensityJump, ForceMode.Impulse);
             IsOnTheGround = false;
@@ -35,8 +37,16 @@ public class PlayerController : MonoBehaviour
         {
             IsOnTheGround = true;
         }
+
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            IsGameOver = true;
+        }
+
        
     }
+
+   
 
 
 }

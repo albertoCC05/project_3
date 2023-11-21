@@ -5,9 +5,22 @@ using UnityEngine;
 public class moveObstacle : MonoBehaviour
 {
     [SerializeField] private float speed;
+    private PlayerController playerScript;
+
+
+    private void Start()
+    {
+        playerScript = FindObjectOfType<PlayerController>();
+
+    }
 
     private void Update()
     {
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
+        if (playerScript.IsGameOver == false)
+        {
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
+        }
+        
+
     }
 }
